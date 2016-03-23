@@ -12,7 +12,8 @@ def index():
 def image():
     if not os.path.isdir('cam'):
         os.mkdir('cam')
-    result = subprocess.Popen('raspistill -o cam/cam.jpg', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.read()
+    #result = subprocess.Popen('raspistill -o cam/cam.jpg', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.read()
+    result = subprocess.Popen('fswebcam -r 1280x720 -o cam/cam.jpg', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT).stdout.read()
     if result:
         return render_template('cam_err.html', result=str(result, 'ascii'))
     return send_file('cam/cam.jpg', mimetype='image/jpeg')
